@@ -13,7 +13,8 @@ import javafx.scene.control.TextField;
 public class FXMLController {
 	
 	Parole elenco ;
-
+	int tentativi = 0;
+	
     @FXML
     private ResourceBundle resources;
 
@@ -28,18 +29,57 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private Button btnCancella;
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    void doCancella(ActionEvent event) {
+    	String daCancellare = txtResult.getSelectedText();
+    	elenco.cancellaParola(daCancellare);
+    	txtResult.setText(elenco.toString());
+    }
 
     @FXML
     void doInsert(ActionEvent event) {
-    	// TODO
+    	
+    	String parola = txtParola.getText().trim();
+    	tentativi++;
+    	
+    	if(parola.length()==0) {
+    		if(tentativi == 1)
+    			txtResult.appendText("DEVI INSERIRE UNA PAROLA");
+    		else
+    			txtResult.appendText("\nDEVI INSERIRE UNA PAROLA");
+    		txtParola.clear();
+    		return;
+    	}
+   
+    	for(int i=0; i<parola.length(); i++) 
+    		if(Character.isLetter(parola.charAt(i)) == false) {
+    			if(tentativi == 1)
+        			txtResult.appendText("LA PAROLA DEVE CONTENERE SOLO LETTERE");
+        		else
+        			txtResult.appendText("\nLA PAROLA DEVE CONTENERE SOLO LETTERE");
+        		txtParola.clear();
+        		
+        		return;
+    		}
+    	
+    	elenco.addParola(parola);
+    	txtResult.setText(elenco.toString());
+    	txtParola.clear();
     }
 
     @FXML
     void doReset(ActionEvent event) {
-    	// TODO
+    	elenco.reset();
+    	txtParola.clear();
+    	txtResult.clear();
+    	tentativi = 0;
     }
 
     @FXML
