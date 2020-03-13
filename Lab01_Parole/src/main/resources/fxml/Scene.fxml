@@ -35,18 +35,24 @@
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
    </padding>
    <bottom>
-      <HBox alignment="TOP_RIGHT" BorderPane.alignment="CENTER">
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btnCancella" mnemonicParsing="false" onAction="#doCancella" text="Cancella">
-               <HBox.margin>
-                  <Insets right="10.0" />
-               </HBox.margin>
-            </Button>
-            <Button fx:id="btnReset" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#doReset" text="Reset" />
+            <HBox alignment="TOP_RIGHT">
+               <children>
+                  <Button fx:id="btnCancella" mnemonicParsing="false" onAction="#doCancella" text="Cancella">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnReset" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#doReset" text="Reset">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+            <TextArea fx:id="txtTime" editable="false" />
          </children>
-         <BorderPane.margin>
-            <Insets top="5.0" />
-         </BorderPane.margin>
-      </HBox>
+      </VBox>
    </bottom>
 </BorderPane>
