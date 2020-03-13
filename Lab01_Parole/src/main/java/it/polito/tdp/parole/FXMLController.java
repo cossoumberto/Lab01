@@ -37,14 +37,25 @@ public class FXMLController {
     private Button btnReset;
     
     @FXML
+    private TextArea txtTime;
+    
+    @FXML
     void doCancella(ActionEvent event) {
+    	
+    	long startTime = System.nanoTime();
+    	
     	String daCancellare = txtResult.getSelectedText();
     	elenco.cancellaParola(daCancellare);
     	txtResult.setText(elenco.toString());
+    	
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTime.setText("Tempo di esecuzione 'Cancella': " + (elapsedNanos)+ " nanosecondi \n");
     }
 
     @FXML
     void doInsert(ActionEvent event) {
+    	
+    	long startTime = System.nanoTime();
     	
     	String parola = txtParola.getText().trim();
     	tentativi++;
@@ -55,6 +66,9 @@ public class FXMLController {
     		else
     			txtResult.appendText("\nDEVI INSERIRE UNA PAROLA");
     		txtParola.clear();
+    		
+    		long elapsedNanos = System.nanoTime() - startTime;
+        	txtTime.setText("Tempo di esecuzione 'Inserisci': " + (elapsedNanos)+ " nanosecondi \n");
     		return;
     	}
    
@@ -66,20 +80,33 @@ public class FXMLController {
         			txtResult.appendText("\nLA PAROLA DEVE CONTENERE SOLO LETTERE");
         		txtParola.clear();
         		
+        		long elapsedNanos = System.nanoTime() - startTime;
+            	txtTime.setText("Tempo di esecuzione 'Inserisci': " + (elapsedNanos)+ " nanosecondi \n");
         		return;
     		}
     	
     	elenco.addParola(parola);
     	txtResult.setText(elenco.toString());
     	txtParola.clear();
+    	
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTime.setText("Tempo di esecuzione 'Inserisci': " + (elapsedNanos)+ " nanosecondi \n");
+    	
     }
 
     @FXML
     void doReset(ActionEvent event) {
+    	
+    	long startTime = System.nanoTime();
+    	
     	elenco.reset();
     	txtParola.clear();
     	txtResult.clear();
+    	txtTime.clear();
     	tentativi = 0;
+    	
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTime.setText("Tempo di esecuzione 'Reset': " + (elapsedNanos)+ " nanosecondi \n");
     }
 
     @FXML
